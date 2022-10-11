@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#95d8eb"
+    tools:context=".SecondaryActivity">
+
+    <TextView
+        android:id="@+id/testTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Meter Reading Test"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/dialLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
+        android:background="#DDDDDD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/testTitle">
+
+        <ImageView
+            android:id="@+id/dial0104"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/dial_cw" />
+
+        <ImageView
+            android:id="@+id/dial0204"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial_ccw" />
+
+        <ImageView
+            android:id="@+id/dial0304"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial_cw" />
+
+        <ImageView
+            android:id="@+id/dial0404"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial_ccw" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="247dp"
+        app:layout_constraintEnd_toEndOf="@id/dialLayout"
+        app:layout_constraintStart_toStartOf="@id/dialLayout"
+        app:layout_constraintTop_toTopOf="@id/dialLayout"
+        app:layout_constraintBottom_toBottomOf="@id/dialLayout"
+        >
+
+
+        <ImageView
+            android:id="@+id/pointer0104"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial" />
+
+        <ImageView
+            android:id="@+id/pointer0204"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial" />
+
+        <ImageView
+            android:id="@+id/pointer0304"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial" />
+
+        <ImageView
+            android:id="@+id/pointer0404"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dial5Layout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/testTitle">
+
+        <ImageView
+            android:id="@+id/dial0105"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/dial_cw" />
+
+        <ImageView
+            android:id="@+id/dial0205"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial_ccw" />
+
+        <ImageView
+            android:id="@+id/dial0305"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial_cw" />
+
+        <ImageView
+            android:id="@+id/dial0405"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial_ccw" />
+
+        <ImageView
+            android:id="@+id/dial0505"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial_cw" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/pointer5Layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#DDDDDD"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="247dp"
+        app:layout_constraintEnd_toEndOf="@id/dial5Layout"
+        app:layout_constraintStart_toStartOf="@id/dial5Layout"
+        app:layout_constraintTop_toTopOf="@id/dial5Layout"
+        app:layout_constraintBottom_toBottomOf="@id/dial5Layout"
+        >
+
+
+        <ImageView
+            android:id="@+id/pointer0105"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial" />
+
+        <ImageView
+            android:id="@+id/pointer0205"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial" />
+
+        <ImageView
+            android:id="@+id/pointer0305"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial" />
+
+        <ImageView
+            android:id="@+id/pointer0405"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial" />
+
+        <ImageView
+            android:id="@+id/pointer0505"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dial" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/answerEntry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialLayout" />
+
+    <LinearLayout
+        android:id="@+id/ButtonLayout01"
+        android:layout_width="440dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answerEntry">
+
+        <Button
+            android:id="@+id/Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#48BF91"
+            android:text="Back"
+            android:textColor="#EEEEEE"
+            android:textSize="20sp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/Next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#48BF91"
+            android:text="Next"
+            android:textColor="#EEEEEE"
+            android:textSize="20sp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnTestHelp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#48BF91"
+        android:text="Help"
+        android:textColor="#EEEEEE"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ButtonLayout01"
+        app:strokeColor="@color/black" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="00:00"
+        android:textSize="43sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTestHelp" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="423dp"
+        android:layout_height="143dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/arrow" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
