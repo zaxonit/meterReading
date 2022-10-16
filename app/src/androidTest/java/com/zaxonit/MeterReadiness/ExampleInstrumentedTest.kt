@@ -1,4 +1,4 @@
-package com.example.zmetertesting01
+package com.zaxonit.MeterReadiness
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.zmetertesting01", appContext.packageName)
+        assertEquals("com.zaxonit.MeterReadiness", appContext.packageName)
     }
 }

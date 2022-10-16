@@ -82,6 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:buttonTint="@color/black"
                 android:checked="true"
                 android:text="4-Dial Only"
                 android:textAlignment="center"
@@ -92,23 +93,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:buttonTint="@color/black"
                 android:text="5-Dial Only"
-                android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/radioMixed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:buttonTint="@color/black"
                 android:text="Mixed"
-                android:textSize="16sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="16sp" />
 
         </RadioGroup>
 
         <Switch
-            android:id="@+id/switch2"
+            android:id="@+id/TimedSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
