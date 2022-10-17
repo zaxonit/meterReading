@@ -107,9 +107,37 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         if (thisCursor?.moveToFirst() == true) {
             currentTestId = thisCursor.getInt(thisCursor.getColumnIndex("id"))
         }
+        db.close()
         return currentTestId
     }
 
+    fun getAllQuestionsData(test_id: Int): Cursor? {
+        val db = this.readableDatabase
+
+        var returnRawQuery: Cursor? = if (test_id != -1) {
+            db.rawQuery(
+                "SELECT * FROM $TABLE_QUES_NAME WHERE $TEST_ID_COL = $test_id",
+                null)
+        } else {
+            db.rawQuery(
+                "SELECT * FROM $TABLE_QUES_NAME",
+                null)
+        }
+        return returnRawQuery
+    }
+
+    fun getCurrentTestCorrect() {
+        null
+    }
+
+    fun answerQuestion(testId: Int, questionNumber: Int, answer: Int) {
+        val db = this.readableDatabase
+        val values = ContentValues()
+        var whereClause = "$TEST_ID_COL = $testId AND $QUES_NUM_COL = $questionNumber"
+        values.put(USER_ANSWER_COL, answer)
+        db.update(TABLE_QUES_NAME, values, whereClause,arrayOf() )
+        db.close()
+    }
 
 
     companion object{

@@ -11,10 +11,10 @@
         android:id="@+id/testTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="Question"
         android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,11 +22,10 @@
         android:id="@+id/dialLayout"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
-        android:background="#FEFEFE"
+        android:layout_marginTop="90dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/testTitle">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/dial0104"
@@ -65,13 +64,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:visibility="visible"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="247dp"
+        app:layout_constraintBottom_toBottomOf="@id/dialLayout"
         app:layout_constraintEnd_toEndOf="@id/dialLayout"
         app:layout_constraintStart_toStartOf="@id/dialLayout"
         app:layout_constraintTop_toTopOf="@id/dialLayout"
-        app:layout_constraintBottom_toBottomOf="@id/dialLayout"
-        >
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="247dp">
 
 
         <ImageView
@@ -108,11 +106,11 @@
         android:id="@+id/dial5Layout"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="90dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/testTitle">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/dial0105"
@@ -158,13 +156,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:visibility="invisible"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="247dp"
+        app:layout_constraintBottom_toBottomOf="@id/dial5Layout"
         app:layout_constraintEnd_toEndOf="@id/dial5Layout"
         app:layout_constraintStart_toStartOf="@id/dial5Layout"
         app:layout_constraintTop_toTopOf="@id/dial5Layout"
-        app:layout_constraintBottom_toBottomOf="@id/dial5Layout"
-        >
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="247dp">
 
 
         <ImageView
@@ -204,82 +201,117 @@
 
     </LinearLayout>
 
+
     <EditText
         android:id="@+id/answerEntry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_width="378dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="232dp"
+        android:background="@color/white"
         android:ems="10"
+        android:fontFamily="serif-monospace"
         android:inputType="number"
+        android:letterSpacing="1.2"
         android:textAlignment="center"
         android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialLayout" />
-
-    <LinearLayout
-        android:id="@+id/ButtonLayout01"
-        android:layout_width="440dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/answerEntry">
-
-        <Button
-            android:id="@+id/btnPrevious"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#48BF91"
-            android:text="Previous"
-            android:textColor="#EEEEEE"
-            android:textSize="20sp"
-            app:strokeColor="@color/black"
-            app:strokeWidth="2dp"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#48BF91"
-            android:text="Next"
-            android:textColor="#EEEEEE"
-            android:textSize="20sp"
-            app:strokeColor="@color/black"
-            app:strokeWidth="2dp" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnTestHelp"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#48BF91"
-        android:text="Help"
-        android:textColor="#EEEEEE"
-        android:textSize="20sp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ButtonLayout01"
-        app:strokeColor="@color/black" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:text="00:00"
-        android:textSize="43sp"
+        android:textSize="24sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.776"
+        app:layout_constraintStart_toEndOf="@+id/testTitle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnPrevious"
+        android:layout_width="163dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="304dp"
+        android:backgroundTint="#48BF91"
+        android:text="Previous"
+        android:textColor="#EEEEEE"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnNext"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTestHelp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="163dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="304dp"
+        android:layout_weight="1"
+        android:backgroundTint="#48BF91"
+        android:text="Next"
+        android:textColor="#EEEEEE"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnPrevious"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/btnTestHelp"
+        android:layout_width="163dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#48BF91"
+        android:text="Help"
+        android:textColor="#EEEEEE"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnTestFinish"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPrevious"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/btnHome2"
+        android:layout_width="163dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="472dp"
+        android:backgroundTint="#48BF91"
+        android:text="Home"
+        android:textColor="#EEEEEE"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/btnTestFinish"
+        android:layout_width="163dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#48BF91"
+        android:text="Finish"
+        android:textColor="#EEEEEE"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnTestHelp"
+        app:layout_constraintTop_toBottomOf="@+id/btnNext"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
 
     <ImageView
         android:id="@+id/bottomImage"

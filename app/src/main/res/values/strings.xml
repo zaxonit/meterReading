@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MeterReadiness</string>
+    <string name="email_address">Enter your email address.</string>
+    <string name="password">Enter your password.</string>
+    <string name="name">Enter your full name.</string>
+    <string name="employee_number">Enter your employee number.</string>
+    <string name="number_questions">Enter the number of questions.</string>
+    <string name="number_diff_questions">... difficult questions.</string>
 </resources>

@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     val NUM_QUESTIONS = 10
     val NUM_DIFF_QUES = 3
     val TEST_TYPE = "M"
-    val IS_TIMED = 0
+    val IS_TIMED = -1
 
     // defaults is not in prog when setting shared preferences
     val QUES_INPROG = -1
@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         startBtn = findViewById(R.id.btnStart)
         sharedPrefs = getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE)
 
+        // evaluate shared preferences
         if (sharedPrefs.contains(NAME_KEY) && sharedPrefs.contains(EMAIL_KEY) && sharedPrefs.contains(EMPNUM_KEY)) {
             nameEditText.setText(sharedPrefs.getString(NAME_KEY, "").toString())
             emailEditText.setText(sharedPrefs.getString(EMAIL_KEY, "").toString())
@@ -118,7 +119,14 @@ class MainActivity : AppCompatActivity() {
             val editor: SharedPreferences.Editor = sharedPrefs.edit()
             editor.putInt(QUES_INPROG_KEY, QUES_INPROG)
             editor.commit()
-        }
+        } else {
+            var QuestionInProgress: Int = sharedPrefs.getInt(QUES_INPROG_KEY, 0)
+            if (QuestionInProgress >= 0) {
+                btnStart.text = "Resume Test"
+                btnPreferences.isEnabled = false
+                btnPreferences.setTextColor(Color.LTGRAY)
+            }
+    }
 
         if (!sharedPrefs.contains(TEST_ID_KEY)) {
             val editor: SharedPreferences.Editor = sharedPrefs.edit()
@@ -154,12 +162,18 @@ class MainActivity : AppCompatActivity() {
                     editor.commit()
                     setLoggedIn()
                 }
-            } else {
+            } else if (btnLogin.text == "Logout"){
 //                this.getSharedPreferences("prefs", 0).edit().clear().apply()
-                sharedPrefs.edit().remove("name").commit()
-                sharedPrefs.edit().remove("email").commit()
-                sharedPrefs.edit().remove("employee_num").commit()
-                setLoggedOut()
+                if (btnStart.text != "Resume Test") {
+                    sharedPrefs.edit().remove("name").commit()
+                    sharedPrefs.edit().remove("email").commit()
+                    sharedPrefs.edit().remove("employee_num").commit()
+                    setLoggedOut()
+                    startActivity(Intent(this, MainActivity::class.java))
+                } else {
+                    snackByView("Make sure you have finished the test before logging off.",
+                        findViewById(loginBtn.id))
+                }
             }
 
 //            startActivity(intent)
@@ -176,58 +190,61 @@ class MainActivity : AppCompatActivity() {
             var WhichTestTypeRadioButton: String = sharedPrefs.getString(TEST_TYPE_KEY, "")!!
             var IsTimedSwitch: Int = sharedPrefs.getInt(IS_TIMED_KEY, 0)
 
-            // add test instance to tests table
-            var thisTestId: Int = dbInstance.addTest(sharedPrefs.getString(NAME_KEY, "").toString(),
+            if (btnStart.text != "Resume Test") {
+                // add test instance to tests table
+                var thisTestId: Int = dbInstance.addTest(
+                    sharedPrefs.getString(NAME_KEY, "").toString(),
                     sharedPrefs.getString(EMAIL_KEY, "").toString(),
                     sharedPrefs.getString(EMPNUM_KEY, "")!!.toInt(),
-                    PrefNumQuestions, PrefNumDiffQues, WhichTestTypeRadioButton, IsTimedSwitch)
-
-            // generate questions for questions table
-            var thisTest = QuestionGenerator(PrefNumQuestions, PrefNumDiffQues, WhichTestTypeRadioButton)
-            var testFirstQues = thisTest.questions[0]
-            var testFirstDialCount = thisTest.questionDialCount[0]
-
-            // test string for debug
-            var checkTestString: String = "$thisTestId - $testFirstQues - $testFirstDialCount"
-            snackByView(checkTestString, findViewById(empNumEditText.id))
-
-
-            // add questions to questions table with test instance id
-            for ((idx, ques) in thisTest.questions.withIndex()) {
-                // calculate and prepare variables for entry into questions tables
-                var thisQuestion: Double = thisTest.questions[idx]
-                var thisCorrectAnswer: Int = thisQuestion.toInt()
-                var thisNumDials = thisTest.questionDialCount[idx]
+                    PrefNumQuestions, PrefNumDiffQues, WhichTestTypeRadioButton, IsTimedSwitch
+                )
+                // generate questions for questions table
+                var thisTest =
+                    QuestionGenerator(PrefNumQuestions, PrefNumDiffQues, WhichTestTypeRadioButton)
+                var testFirstQues = thisTest.questions[0]
+                var testFirstDialCount = thisTest.questionDialCount[0]
+//                test string for debug
+//                var checkTestString: String = "$thisTestId - $testFirstQues - $testFirstDialCount"
+//                snackByView(checkTestString, findViewById(empNumEditText.id))
+                // add questions to questions table with test instance id
+                for ((idx, ques) in thisTest.questions.withIndex()) {
+                    // calculate and prepare variables for entry into questions tables
+                    var thisQuestion: Double = thisTest.questions[idx]
+                    var thisCorrectAnswer: Int = thisQuestion.toInt()
+                    var thisNumDials = thisTest.questionDialCount[idx]
 //                var thisDivisor: Double = (10).toDouble().pow(thisNumDials-1)
-                var thisDivisor: Double = 10.0
-                var thisDial5: Double? = null
-                if (thisNumDials == 5) {
-                    thisDial5 = thisQuestion-(floor(thisQuestion/thisDivisor)*thisDivisor)
+                    var thisDivisor: Double = 10.0
+                    var thisDial5: Double? = null
+                    if (thisNumDials == 5) {
+                        thisDial5 = thisQuestion-(floor(thisQuestion/thisDivisor)*thisDivisor)
+                        thisDivisor *= 10
+                    }
+                    var thisDial4: Double = (thisQuestion-(floor(thisQuestion/thisDivisor)*thisDivisor))/(thisDivisor/10)
                     thisDivisor *= 10
-                }
-                var thisDial4: Double = (thisQuestion-(floor(thisQuestion/thisDivisor)*thisDivisor))/(thisDivisor/10)
-                thisDivisor *= 10
-                var thisDial3: Double = (thisQuestion-(floor(thisQuestion/thisDivisor)*thisDivisor))/(thisDivisor/10)
-                thisDivisor *= 10
-                var thisDial2: Double = (thisQuestion-(floor(thisQuestion/thisDivisor)*thisDivisor))/(thisDivisor/10)
-                thisDivisor *= 10
-                var thisDial1: Double = (thisQuestion-(floor(thisQuestion/thisDivisor)*thisDivisor))/(thisDivisor/10)
-                thisDivisor *= 10
+                    var thisDial3: Double = (thisQuestion-(floor(thisQuestion/thisDivisor)*thisDivisor))/(thisDivisor/10)
+                    thisDivisor *= 10
+                    var thisDial2: Double = (thisQuestion-(floor(thisQuestion/thisDivisor)*thisDivisor))/(thisDivisor/10)
+                    thisDivisor *= 10
+                    var thisDial1: Double = (thisQuestion-(floor(thisQuestion/thisDivisor)*thisDivisor))/(thisDivisor/10)
+                    thisDivisor *= 10
 
-                dbInstance.addQuestion(thisTestId, (idx+1), thisNumDials, thisCorrectAnswer,
+                    dbInstance.addQuestion(thisTestId, (idx+1), thisNumDials, thisCorrectAnswer,
                         thisDial1, thisDial2, thisDial3, thisDial4, thisDial5, 0
                     )
-                val editor: SharedPreferences.Editor = sharedPrefs.edit()
-                editor.putInt(QUES_INPROG_KEY, 1)
-                editor.putInt(TEST_ID_KEY, thisTestId)
-                editor.commit()
+                    val editor: SharedPreferences.Editor = sharedPrefs.edit()
+                    editor.putInt(QUES_INPROG_KEY, 1)
+                    editor.putInt(TEST_ID_KEY, thisTestId)
+                    editor.commit()
+                }
             }
+
 
 
             startActivity(intent)
         }
 
         btnPreferences.setOnClickListener {
+            overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_out_bottom)
             var intent = Intent(this, PreferencesActivity::class.java)
             startActivity(intent)
 
@@ -266,6 +283,9 @@ class MainActivity : AppCompatActivity() {
 
         btnLogin.text = "Login"
         btnStart.isEnabled = false
+        btnStart.text = "Start"
+        btnPreferences.isEnabled = true
+        btnPreferences.setTextColor(Color.WHITE)
         btnStart.setTextColor(Color.GRAY)
     }
     private fun setETEnabled(editText: EditText) {

@@ -1,6 +1,7 @@
 package com.zaxonit.MeterReadiness
 
 import android.annotation.SuppressLint
+import android.app.AsyncNotedAppOp
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -8,6 +9,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -19,6 +21,7 @@ class SecondaryActivity : AppCompatActivity() {
 
     lateinit var sharedPrefs: SharedPreferences
     lateinit var testTitleTextView: TextView
+    lateinit var answerEntryEditText: EditText
     lateinit var dial4LinearLayout: LinearLayout
     lateinit var dial5LinearLayout: LinearLayout
     lateinit var pointer4LinearLayout: LinearLayout
@@ -42,6 +45,8 @@ class SecondaryActivity : AppCompatActivity() {
     var thisDial3: Double = -1.0
     var thisDial4: Double = -1.0
     var thisDial5: Double = -1.0
+    var thisUserAnswerInt: Int = 0
+    var thisUserAnswer: String = ""
 
 
     @SuppressLint("Range", "MissingInflatedId")
@@ -50,6 +55,7 @@ class SecondaryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_secondary)
 
         testTitleTextView = findViewById(R.id.testTitle)
+        answerEntryEditText = findViewById(R.id.answerEntry)
         dial4LinearLayout = findViewById(R.id.dialLayout)
         dial5LinearLayout = findViewById(R.id.dial5Layout)
         pointer4LinearLayout = findViewById(R.id.pointerLayout)
@@ -68,7 +74,7 @@ class SecondaryActivity : AppCompatActivity() {
         val thisDB = DBHelper(this, null)
         val thisCursor = thisDB.getQuestion(TestId, QuestionInProgress)
 
-        testTitleTextView.text = "Question #${QuestionInProgress.toString()}"
+        testTitleTextView.text = "Meter #${QuestionInProgress.toString()}"
 
         if(thisCursor!!.moveToFirst()) {
             thisAnswer = thisCursor.getInt(thisCursor.getColumnIndex(DBHelper.ANSWER_COL))
@@ -79,12 +85,28 @@ class SecondaryActivity : AppCompatActivity() {
             thisDial4 = thisCursor.getDouble(thisCursor.getColumnIndex(DBHelper.DIAL_4_COL))
             thisDial5 = thisCursor.getDouble(thisCursor.getColumnIndex(DBHelper.DIAL_5_COL))
 
+            thisUserAnswerInt = thisCursor.getInt(thisCursor.getColumnIndex(DBHelper.USER_ANSWER_COL))
+            thisUserAnswer = thisUserAnswerInt.toString()
+            var thisUserAnswerLength = thisUserAnswer.length
+            var n = 0
+            if (thisUserAnswerLength < thisNumDials) {
+                n = thisNumDials - thisUserAnswerLength
+            }
+            thisUserAnswer = if (thisUserAnswerInt != 0) {
+                thisUserAnswer.padStart(n, '0')
+            } else {
+                ""
+            }
+
+            answerEntryEditText.setText(thisUserAnswer)
+
         }
-        var testMessage = "$thisAnswer - $thisNumDials - $thisDial1 - $thisDial2 - $thisDial3 - $thisDial4 - $thisDial5"
-        snackByView(testMessage, findViewById(bottomImageView.id))
+        var testMessage = "$thisAnswer|$thisDial1 - $thisNumDials - $thisUserAnswer|${thisUserAnswerInt.toString()}"
+//        snackByView(testMessage, findViewById(bottomImageView.id))
 
         if (QuestionInProgress == PrefNumQuestions) {
-            btnNext.text = "Finish"
+            btnNext.isEnabled = false
+            btnNext.setTextColor(Color.GRAY)
         }
 
         if (QuestionInProgress == 1) {
@@ -117,17 +139,16 @@ class SecondaryActivity : AppCompatActivity() {
         }
 
         btnNext.setOnClickListener {
-            if (btnNext.text != "Finish") {
-                var intent = Intent(this, SecondaryActivity::class.java)
+            var intent = Intent(this, SecondaryActivity::class.java)
 
-                val editor: SharedPreferences.Editor = sharedPrefs.edit()
-                editor.putInt(QUES_INPROG_KEY, (QuestionInProgress+1))
-                editor.commit()
-
+            val editor: SharedPreferences.Editor = sharedPrefs.edit()
+            editor.putInt(QUES_INPROG_KEY, (QuestionInProgress+1))
+            editor.commit()
+            if (checkFilledOut()) {
+                updateAnswer(TestId, QuestionInProgress, answerEntryEditText.text.toString().toInt())
                 startActivity(intent)
             } else {
-                var intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                snackByView("You must enter a valid answer before going to another question.", findViewById(answerEntry.id))
             }
         }
 
@@ -137,13 +158,26 @@ class SecondaryActivity : AppCompatActivity() {
             val editor: SharedPreferences.Editor = sharedPrefs.edit()
             editor.putInt(QUES_INPROG_KEY, (QuestionInProgress-1))
             editor.commit()
+            if (checkFilledOut()) {
+                updateAnswer(TestId, QuestionInProgress, answerEntryEditText.text.toString().toInt())
+                startActivity(intent)
+            } else {
+                snackByView("You must enter a valid answer before going to another question.", findViewById(answerEntry.id))
+            }
+        }
 
-            startActivity(intent)
+        btnTestFinish.setOnClickListener {
+            updateAnswer(TestId, QuestionInProgress, answerEntryEditText.text.toString().toInt())
+            startActivity(Intent(this, ConfirmFinish::class.java))
         }
 
         btnTestHelp.setOnClickListener {
             var intent = Intent(this, HelpActivity::class.java)
             startActivity(intent)
+        }
+
+        btnHome2.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
@@ -161,6 +195,15 @@ class SecondaryActivity : AppCompatActivity() {
     private fun rotateImageCounterClockwise(dial_read: Double, whichView: View) {
         var rotationInDegrees: Float = 360.0F - (360*dial_read/10).toFloat()
         whichView.rotation = rotationInDegrees
+    }
+
+    private fun checkFilledOut():  Boolean {
+        return !(answerEntryEditText.text.isEmpty() || answerEntryEditText.text.length > thisNumDials)
+    }
+    private fun updateAnswer(testId: Int, questionNumber: Int, answer: Int) {
+        val thisDB = DBHelper(this, null)
+        thisDB.answerQuestion(testId, questionNumber, answer)
+        thisDB.close()
     }
 
 

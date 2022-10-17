@@ -8,7 +8,7 @@
     tools:context=".PreferencesActivity">
 
     <TextView
-        android:id="@+id/mainTitle"
+        android:id="@+id/txtFinishedHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -34,24 +34,27 @@
             android:id="@+id/labelNumQuestions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Number of Questions"
+            android:text="number of questions"
             android:textSize="20sp" />
 
         <EditText
             android:id="@+id/numQuestions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:ems="10"
+            android:hint="@string/number_questions"
             android:inputType="number"
             android:text="20"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="30sp" />
 
         <TextView
             android:id="@+id/labelNumDiffQuestions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Number of Difficult Questions"
+            android:text="number of difficult questions"
             android:textSize="20sp" />
 
         <EditText
@@ -62,6 +65,9 @@
             android:inputType="number"
             android:text="4"
             android:textAlignment="center"
+            android:background="@color/white"
+            android:hint="@string/number_diff_questions"
+            android:textColor="@color/black"
             android:textSize="30sp" />
 
         <TextView
@@ -116,51 +122,60 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Timed"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="invisible" />
 
 
     </LinearLayout>
 
     <Button
         android:id="@+id/btnSave"
-        android:layout_width="240dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="163dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="356dp"
         android:backgroundTint="#48BF91"
         android:text="Save"
         android:textColor="#EEEEEE"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnHome"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <Button
-        android:id="@+id/btnHome"
-        android:layout_width="240dp"
-        android:layout_height="55dp"
-        android:backgroundTint="#48BF91"
-        android:text="Cancel"
-        android:textColor="#EEEEEE"
-        android:textSize="20sp"
-        android:onClick="backHome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSave" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
 
     <Button
         android:id="@+id/btnHelp"
-        android:layout_width="240dp"
-        android:layout_height="55dp"
+        android:layout_width="163dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="444dp"
         android:backgroundTint="#48BF91"
         android:text="Help"
         android:textColor="#EEEEEE"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnHome" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/btnHome"
+        android:layout_width="163dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="356dp"
+        android:backgroundTint="#48BF91"
+        android:onClick="backHome"
+        android:text="Cancel"
+        android:textColor="#EEEEEE"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnSave"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
 
     <ImageView
         android:id="@+id/imageView2"
