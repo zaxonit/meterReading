@@ -29,10 +29,16 @@ class PreferencesActivity : AppCompatActivity() {
     var TEST_TYPE_KEY = "test_type"
     var IS_TIMED_KEY = "is_timed"
 
+    override fun onBackPressed() {
+        finish()
+        startActivity(Intent(this, MainActivity::class.java))
+    }
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preferences)
+
         var radioGroup: RadioGroup = findViewById(R.id.testTypeRadioGroup)
 
         // collect all Shared Preferences
@@ -65,6 +71,7 @@ class PreferencesActivity : AppCompatActivity() {
             var intent = Intent(this, MainActivity::class.java)
             intent.putExtra("numberOfQuestions", numQuestions.text.toString())
             intent.putExtra("numberOfDiffQuestions", numDiffQuestions.text.toString())
+            finish()
             startActivity(intent)
 
         }
@@ -101,17 +108,20 @@ class PreferencesActivity : AppCompatActivity() {
                 }
 
                 editor.commit()
+                finish()
                 startActivity(intent)
             }
     }
 
     btnHelp.setOnClickListener {
         var intent = Intent(this, HelpActivity::class.java)
-            startActivity(intent)
+        finish()
+        startActivity(intent)
         }
     }
     fun backHome(view: View) {
-        onBackPressed()
+        finish()
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun snackByView(message: String, whichView: View) {

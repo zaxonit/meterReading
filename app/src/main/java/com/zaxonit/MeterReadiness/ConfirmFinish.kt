@@ -34,6 +34,11 @@ class ConfirmFinish : AppCompatActivity() {
     var QUES_INPROG = -1
 
 
+    override fun onBackPressed() {
+        finish()
+        startActivity(Intent(this, MainActivity::class.java))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_confirm_finish)
@@ -107,7 +112,8 @@ class ConfirmFinish : AppCompatActivity() {
         testReviewTextView.text = reviewString
 
         btnCancelConfirm.setOnClickListener {
-            onBackPressed()
+            finish()
+            startActivity(Intent(this,SecondaryActivity::class.java))
         }
 
         btnConfirm.setOnClickListener {
@@ -125,6 +131,7 @@ class ConfirmFinish : AppCompatActivity() {
                 btnCancelConfirm.setTextColor(Color.GRAY)
                 btnConfirm.text = "Home"
             } else {
+                finish()
                 startActivity(Intent(this, MainActivity::class.java))
             }
 

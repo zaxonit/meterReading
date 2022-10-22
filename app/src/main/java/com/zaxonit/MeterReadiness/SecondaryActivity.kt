@@ -8,11 +8,9 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_secondary.*
@@ -28,6 +26,7 @@ class SecondaryActivity : AppCompatActivity() {
     lateinit var pointer5LinearLayout: LinearLayout
     lateinit var bottomImageView: ImageView
 
+    private var doubleBackToExitPressedOnce = false
     // created variables for shared pref keys
     var PREFS_KEY = "prefs"
 
@@ -50,6 +49,11 @@ class SecondaryActivity : AppCompatActivity() {
 
 
     @SuppressLint("Range", "MissingInflatedId")
+    override fun onBackPressed() {
+        finish()
+        startActivity(Intent(this, MainActivity::class.java))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_secondary)
@@ -146,6 +150,7 @@ class SecondaryActivity : AppCompatActivity() {
             editor.commit()
             if (checkFilledOut()) {
                 updateAnswer(TestId, QuestionInProgress, answerEntryEditText.text.toString().toInt())
+                finish()
                 startActivity(intent)
             } else {
                 snackByView("You must enter a valid answer before going to another question.", findViewById(answerEntry.id))
@@ -160,6 +165,7 @@ class SecondaryActivity : AppCompatActivity() {
             editor.commit()
             if (checkFilledOut()) {
                 updateAnswer(TestId, QuestionInProgress, answerEntryEditText.text.toString().toInt())
+                finish()
                 startActivity(intent)
             } else {
                 snackByView("You must enter a valid answer before going to another question.", findViewById(answerEntry.id))
@@ -167,7 +173,14 @@ class SecondaryActivity : AppCompatActivity() {
         }
 
         btnTestFinish.setOnClickListener {
-            updateAnswer(TestId, QuestionInProgress, answerEntryEditText.text.toString().toInt())
+            if (checkFilledOut()) {
+                updateAnswer(
+                    TestId,
+                    QuestionInProgress,
+                    answerEntryEditText.text.toString().toInt()
+                )
+            }
+            finish()
             startActivity(Intent(this, ConfirmFinish::class.java))
         }
 

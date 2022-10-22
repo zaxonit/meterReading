@@ -9,6 +9,7 @@ import android.text.TextUtils.*
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -57,6 +58,15 @@ class MainActivity : AppCompatActivity() {
     val QUES_INPROG = -1
     val TEST_ID = -1
     val IS_REVIEW = -1
+
+    private var doubleBackToExitPressedOnce = false
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+        doubleBackToExitPressedOnce = true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -169,6 +179,7 @@ class MainActivity : AppCompatActivity() {
                     sharedPrefs.edit().remove("email").commit()
                     sharedPrefs.edit().remove("employee_num").commit()
                     setLoggedOut()
+                    finish()
                     startActivity(Intent(this, MainActivity::class.java))
                 } else {
                     snackByView("Make sure you have finished the test before logging off.",
@@ -237,21 +248,21 @@ class MainActivity : AppCompatActivity() {
                     editor.commit()
                 }
             }
-
-
-
+            finish()
             startActivity(intent)
         }
 
         btnPreferences.setOnClickListener {
             overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_out_bottom)
             var intent = Intent(this, PreferencesActivity::class.java)
+            finish()
             startActivity(intent)
 
         }
 
         btnHelp.setOnClickListener {
             var intent = Intent(this, HelpActivity::class.java)
+            finish()
             startActivity(intent)
 
         }
